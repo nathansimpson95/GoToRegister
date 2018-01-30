@@ -96,10 +96,11 @@ function generateFormFunc($atts){
 		$vals['body'] = (object) array('firstName' => $_POST['fname'],'lastName' => $_POST['lname'],'email' => $_POST['email']);
 
 		$long_url = 'https://api.getgo.com/G2W/rest/organizers/'.$a['organiser_key'].'/webinars/'.$a['webinar_key'].'/registrants';
-		$header = array();
-    $header[] = 'Content-type: application/json';
-    $header[] = 'Accept: application/vnd.citrix.g2wapi-v1.1+json';
-    $header[] = 'Authorization:' . $token;
+		$header = array(
+			'Content-type' => 'application/json',
+			'Accept' => 'application/vnd.citrix.g2wapi-v1.1+json',
+			'Authorization:' => $token,
+		);
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $long_url);
@@ -122,8 +123,8 @@ function generateFormFunc($atts){
 
 	ob_start();
 	outputForm();
-  $output = ob_get_clean();
-  return $output;
+	$output = ob_get_clean();
+	return $output;
 }
 
 
