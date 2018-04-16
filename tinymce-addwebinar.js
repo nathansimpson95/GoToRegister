@@ -10,7 +10,7 @@
 		// Add Command when Button Clicked
 		editor.addCommand('custom_link_class', function() {
 		    // Check we have selected some text that we want to link
-		 
+
 		    // Ask the user to enter a URL
 		    var webinarKey = prompt('Please enter the webinar key');
 		    if ( !webinarKey ) {
@@ -23,7 +23,7 @@
 		    }
 
 		    // Insert selected text back into editor, wrapping it in an anchor tag
-		    editor.execCommand('mceInsertContent', false, '[generateForm webinar_key="'+ webinarKey +'"]');
+		    editor.execCommand('mceInsertContent', false, '[gotoregister webinar_key="'+ webinarKey +'"]');
 		});
     });
 })();
