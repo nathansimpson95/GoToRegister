@@ -2,9 +2,9 @@
     tinymce.PluginManager.add( 'custom_link_class', function( editor, url ) {
         // Add Button to Visual Editor Toolbar
         editor.addButton('custom_link_class', {
-            title: 'Add Webinar Registration Form',
+            title: 'GoToRegister',
             cmd: 'custom_link_class',
-            image: url + '/icon.png',
+            image: url + '/tinymce-icon.png',
 
         });
 		// Add Command when Button Clicked
@@ -12,7 +12,7 @@
 		    // Check we have selected some text that we want to link
 
 		    // Ask the user to enter a URL
-		    var webinarKey = prompt('Please enter the webinar key');
+		    var webinarKey = prompt('GoToRegister\nPlease enter the webinar key');
 		    if ( !webinarKey ) {
 		        // User cancelled - exit
 		        return;

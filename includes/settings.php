@@ -6,7 +6,7 @@ function GoToRegister_settings_init() {
   register_setting( 'GoToRegister', 'GoToRegister_password' );
   register_setting( 'GoToRegister', 'GoToRegister_apiClientId' );
   register_setting( 'GoToRegister', 'GoToRegister_organiserKey' );
-  register_setting( 'GoToRegister', 'GoToRegister_disclaimer', array('default' => 'Bootstrap'));
+  register_setting( 'GoToRegister', 'GoToRegister_disclaimer', array('default' => 'By clicking this button, you agree to allow us to communicate with you regarding this event.'));
   register_setting( 'GoToRegister', 'GoToRegister_theme', array('default' => 'Bootstrap'));
   register_setting( 'GoToRegister', 'GoToRegister_title', array('default' => '<h2>Register for this Webinar</h2>'));
 
@@ -73,6 +73,19 @@ function GoToRegister_settings_init() {
   'GoToRegister_section_credentials',
   [
   'label_for' => 'GoToRegister_organiserKey',
+  'class' => 'GoToRegister_row',
+  'GoToRegister_custom_data' => 'custom',
+  ]
+  );
+
+  add_settings_field(
+  'GoToRegister_title',
+  __( 'Form Title', 'GoToRegister' ),
+  'GoToRegister_field_title_cb',
+  'GoToRegister',
+  'GoToRegister_section_styles',
+  [
+  'label_for' => 'GoToRegister_title',
   'class' => 'GoToRegister_row',
   'GoToRegister_custom_data' => 'custom',
   ]
@@ -192,14 +205,24 @@ function GoToRegister_field_theme_cb( $args ) {
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
  name="<?php echo esc_attr( $args['label_for'] ); ?>"
  >
-  <option value="Bootstrap" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'Bootstrap', false ) ) : ( '' ); ?> >
-    <?php esc_html_e( 'Bootstrap', 'GoToRegister' ); ?>
-  </option>
-  <option value="blue" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?> >
-    <?php esc_html_e( 'blue pill', 'GoToRegister' ); ?>
-  </option>
+  <option value="Bootstrap" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'Bootstrap', false ) ) : ( '' ); ?> ><?php esc_html_e( 'Bootstrap', 'GoToRegister' ); ?></option>
+  <option value="BootstrapWide" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'BootstrapWide', false ) ) : ( '' ); ?> ><?php esc_html_e( 'Bootstrap - Wide', 'GoToRegister' ); ?></option>
  </select>
  <p class="description"><?php esc_html_e( 'Choose the CSS Theme to be applied to the form', 'GoToRegister' ); ?></p>
+ <?php
+}
+
+function GoToRegister_field_title_cb( $args ) {
+ $option = get_option( 'GoToRegister_title' );
+ ?>
+ <input
+   type="text"
+   id="<?php echo esc_attr( $args['label_for'] ); ?>"
+   name="<?php echo esc_attr( $args['label_for'] ); ?>"
+   data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+   value="<?php echo $option; ?>"
+ />
+ <p class="description"><?php esc_html_e( 'Your heading for the form, in HTML tags', 'GoToRegister' ); ?></p>
  <?php
 }
 
