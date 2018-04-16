@@ -1,8 +1,8 @@
 <?php
 /**
-* Plugin Name: GoToRegisterWP
-* Version: 0.2.0
-* Description: This plugin generates a registration form for a specified Webinar.
+* Plugin Name: GoToRegister
+* Version: 0.2.1
+* Description: A GoToWebinar Registration Form Generator Plugin, using Wordpress Shortcodes.
 * Author: Nathan Simpson
 * Author URI: http://www.nathansimpson.design
 */
@@ -11,10 +11,12 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 $token = "";
-$username = get_option('gotousername');
-$password = get_option('gotopassword');
-$clientID = get_option('APIClientID');
-$defaultOrganiserKey = get_option('defaultOrganiserKey');
+$username = get_option( 'GoToRegister_username' );
+$password = get_option( 'GoToRegister_password' );
+$clientID = get_option( 'GoToRegister_apiClientId' );
+$defaultOrganiserKey = get_option( 'GoToRegister_organiserKey' );
+$disclaimer = get_option( 'GoToRegister_disclaimer' );
+$title = get_option( 'GoToRegister_title' );
 
 //generates an access token for a gotowebinar api request
 function generateToken(){
@@ -50,33 +52,12 @@ function generateToken(){
 	}
 }
 
-
 //the HTML markup of the form that will be displayed.
 function outputForm(){
-	echo '<h2>Register for this Webinar</h2>
-	<form action="" method="POST" id="registration-form" class="webinar-signup">
-		<div class="row">
-			<input name="webinar_key" type="hidden" value="'.$a['webinar_key'].'" />
-			<input name="organizer_key" type="hidden" value="'.$a['organiser_key'].'" />
-			<div class="col-sm-4 form-group">
-			    <label for="fname">First Name</label>
-			    <input type="text" class="form-control" name="fname">
-			</div>
-
-			<div class="col-sm-4 form-group">
-			    <label for="lname">Last Name</label>
-			    <input type="text" class="form-control" name="lname">
-			</div>
-
-		    <div class="col-sm-4 form-group">
-			    <label for="email">Email address</label>
-			    <input type="email" class="form-control" name="email" placeholder="example@example.com">
-			</div>
-		</div>
-	  <small id="emailHelp" class="form-text text-muted">' . get_option('gotodisclaimer') . '</small>
-
-	  <input type="submit" class="btn btn-primary" value="Register For Event" name="registration-submission" />
-	</form>';
+	require('includes/form.php');
+	global $title;
+	echo $title;
+	echo $formHTML;
 }
 
 
