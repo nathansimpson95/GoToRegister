@@ -129,7 +129,7 @@ function generateFormFunc($atts){
 
 
 
-require('includes/options2.php');
+require('includes/settings.php');
 require('includes/tinymce.php');
 add_shortcode('gotoregister', 'generateFormFunc');
 ?>

@@ -1,15 +1,7 @@
 <?php
-/**
- * @internal never define functions inside callbacks.
- * these functions could be run multiple times; this would result in a fatal error.
- */
 
-/**
- * custom option and settings
- */
 function GoToRegister_settings_init() {
  // register a new setting for "GoToRegister" page
- register_setting( 'GoToRegister', 'GoToRegister_options' );
  register_setting( 'GoToRegister', 'GoToRegister_username' );
  register_setting( 'GoToRegister', 'GoToRegister_password' );
  register_setting( 'GoToRegister', 'GoToRegister_apiClientId' );
@@ -26,27 +18,13 @@ function GoToRegister_settings_init() {
 
  // register a new field in the "GoToRegister_section_developers" section, inside the "GoToRegister" page
  add_settings_field(
- 'GoToRegister_field_pill', // as of WP 4.6 this value is used only internally
- // use $args' label_for to populate the id inside the callback
- __( 'Pill', 'GoToRegister' ),
- 'GoToRegister_field_pill_cb',
- 'GoToRegister',
- 'GoToRegister_section_developers',
- [
- 'label_for' => 'GoToRegister_field_pill',
- 'class' => 'GoToRegister_row',
- 'GoToRegister_custom_data' => 'custom',
- ]
- );
-
- add_settings_field(
  'GoToRegister_username', // as of WP 4.6 this value is used only internally
  __( 'GoToWebinar Username', 'GoToRegister' ),
  'GoToRegister_field_username_cb',
  'GoToRegister',
  'GoToRegister_section_developers',
  [
- 'label_for' => 'GoToRegister_field_username',
+ 'label_for' => 'GoToRegister_username',
  'class' => 'GoToRegister_row',
  'GoToRegister_custom_data' => 'custom',
  ]
@@ -59,7 +37,7 @@ function GoToRegister_settings_init() {
  'GoToRegister',
  'GoToRegister_section_developers',
  [
- 'label_for' => 'GoToRegister_field_password',
+ 'label_for' => 'GoToRegister_password',
  'class' => 'GoToRegister_row',
  'GoToRegister_custom_data' => 'custom',
  ]
@@ -72,7 +50,7 @@ function GoToRegister_settings_init() {
  'GoToRegister',
  'GoToRegister_section_developers',
  [
- 'label_for' => 'GoToRegister_field_apiClientId',
+ 'label_for' => 'GoToRegister_apiClientId',
  'class' => 'GoToRegister_row',
  'GoToRegister_custom_data' => 'custom',
  ]
@@ -85,7 +63,7 @@ function GoToRegister_settings_init() {
  'GoToRegister',
  'GoToRegister_section_developers',
  [
- 'label_for' => 'GoToRegister_field_organiserKey',
+ 'label_for' => 'GoToRegister_organiserKey',
  'class' => 'GoToRegister_row',
  'GoToRegister_custom_data' => 'custom',
  ]
@@ -98,7 +76,7 @@ function GoToRegister_settings_init() {
  'GoToRegister',
  'GoToRegister_section_developers',
  [
- 'label_for' => 'GoToRegister_field_disclaimer',
+ 'label_for' => 'GoToRegister_disclaimer',
  'class' => 'GoToRegister_row',
  'GoToRegister_custom_data' => 'custom',
  ]
@@ -134,43 +112,18 @@ function GoToRegister_section_developers_cb( $args ) {
 // the "label_for" key value is used for the "for" attribute of the <label>.
 // the "class" key value is used for the "class" attribute of the <tr> containing the field.
 // you can add custom key value pairs to be used inside your callbacks.
-function GoToRegister_field_pill_cb( $args ) {
- // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_options' );
- // output the field
- ?>
- <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
- data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
- >
- <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
- <?php esc_html_e( 'red pill', 'GoToRegister' ); ?>
- </option>
- <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
- <?php esc_html_e( 'blue pill', 'GoToRegister' ); ?>
- </option>
- </select>
- <p class="description">
- <?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'GoToRegister' ); ?>
- </p>
- <p class="description">
- <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'GoToRegister' ); ?>
- </p>
- <?php
-}
-
-
 
 function GoToRegister_field_username_cb( $args ) {
  // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_username' );
+ $option = get_option( 'GoToRegister_username' );
  // output the field
  ?>
  <input
  type="text"
  id="<?php echo esc_attr( $args['label_for'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ name="<?php echo esc_attr( $args['label_for'] ); ?>"
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+ value="<?php echo $option; ?>"
  />
  <p class="description">
  <?php esc_html_e( 'Your username for GoToWebinar.', 'GoToRegister' ); ?>
@@ -180,14 +133,15 @@ function GoToRegister_field_username_cb( $args ) {
 
 function GoToRegister_field_password_cb( $args ) {
  // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_password' );
+ $option = get_option( 'GoToRegister_password' );
  // output the field
  ?>
  <input
- type="text"
+ type="password"
  id="<?php echo esc_attr( $args['label_for'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ name="<?php echo esc_attr( $args['label_for'] ); ?>"
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+ value="<?php echo $option; ?>"
  />
  <p class="description">
  <?php esc_html_e( 'Your password for GoToWebinar.', 'GoToRegister' ); ?>
@@ -197,14 +151,15 @@ function GoToRegister_field_password_cb( $args ) {
 
 function GoToRegister_field_apiClientId_cb( $args ) {
  // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_apiClientId' );
+ $option = get_option( 'GoToRegister_apiClientId' );
  // output the field
  ?>
  <input
  type="text"
  id="<?php echo esc_attr( $args['label_for'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ name="<?php echo esc_attr( $args['label_for'] ); ?>"
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+ value="<?php echo $option; ?>"
  />
  <p class="description">
  <?php esc_html_e( 'Your GoToWebinar API Client ID.', 'GoToRegister' ); ?>
@@ -214,14 +169,15 @@ function GoToRegister_field_apiClientId_cb( $args ) {
 
 function GoToRegister_field_organiserKey_cb( $args ) {
  // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_organiserKey' );
+ $option = get_option( 'GoToRegister_organiserKey' );
  // output the field
  ?>
  <input
  type="text"
  id="<?php echo esc_attr( $args['label_for'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ name="<?php echo esc_attr( $args['label_for'] ); ?>"
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+ value="<?php echo $option; ?>"
  />
  <p class="description">
  <?php esc_html_e( 'Your Default GoToWebinar Organiser ID.', 'GoToRegister' ); ?>
@@ -231,14 +187,15 @@ function GoToRegister_field_organiserKey_cb( $args ) {
 
 function GoToRegister_field_disclaimer_cb( $args ) {
  // get the value of the setting we've registered with register_setting()
- $options = get_option( 'GoToRegister_disclaimer' );
+ $option = get_option( 'GoToRegister_disclaimer' );
  // output the field
  ?>
  <input
  type="text"
  id="<?php echo esc_attr( $args['label_for'] ); ?>"
- name="GoToRegister_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ name="<?php echo esc_attr( $args['label_for'] ); ?>"
  data-custom="<?php echo esc_attr( $args['GoToRegister_custom_data'] ); ?>"
+ value="<?php echo $option; ?>"
  />
  <p class="description">
  <?php esc_html_e( 'Your message to be shown below the form.', 'GoToRegister' ); ?>
