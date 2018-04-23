@@ -18,8 +18,8 @@ $formHTML = '<form action="" method="POST" id="registration-form" class="webinar
         <input type="email" class="form-control" name="email" placeholder="example@example.com">
     </div>
   </div>
-  <small id="emailHelp" class="form-text text-muted">' . $disclaimer . '</small>
+  <small class="form-text text-muted">' . get_option( 'GoToRegister_disclaimer' ) . '</small>
 
-  <input type="submit" class="btn btn-primary" value="Register For Event" name="registration-submission" />
+  <input type="submit" class="btn btn-primary" value="Register For Webinar" name="registration-submission" />
 </form>';
 ?>

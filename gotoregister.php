@@ -1,22 +1,22 @@
 <?php
 /**
 * Plugin Name: GoToRegister
-* Version: 0.2.1
-* Description: A GoToWebinar Registration Form Generator Plugin, using Wordpress Shortcodes.
+* Version: 1.0.0
+* Description: A GoToWebinar Registration Form Generator Plugin, using Shortcodes.
 * Author: Nathan Simpson
 * Author URI: http://www.nathansimpson.design
 */
 
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) )exit;
+
 
 $token = "";
 $username = get_option( 'GoToRegister_username' );
 $password = get_option( 'GoToRegister_password' );
 $clientID = get_option( 'GoToRegister_apiClientId' );
 $defaultOrganiserKey = get_option( 'GoToRegister_organiserKey' );
-$disclaimer = get_option( 'GoToRegister_disclaimer' );
-$title = get_option( 'GoToRegister_title' );
+$theme = get_option( 'GoToRegister_theme' );
 
 //generates an access token for a gotowebinar api request
 function generateToken(){
@@ -54,10 +54,23 @@ function generateToken(){
 
 //the HTML markup of the form that will be displayed.
 function outputForm(){
-	require('includes/form.php');
-	global $title;
-	echo $title;
-	echo $formHTML;
+	global $theme;
+
+	echo get_option( 'GoToRegister_title' );
+
+	if($theme == "Bootstrap"){
+		require('includes/form-Bootstrap.php');
+		echo $formHTML;
+	}elseif($theme == "BootstrapWide"){
+		require('includes/form-BootstrapWide.php');
+		echo $formHTML;
+	}elseif($theme == "Simple"){
+		require('includes/form-Simple.php');
+		echo $formHTML;
+	}else{
+		echo "Error. Theme not specified.";
+	}
+
 }
 
 
@@ -107,8 +120,6 @@ function generateFormFunc($atts){
 	$output = ob_get_clean();
 	return $output;
 }
-
-
 
 require('includes/settings.php');
 require('includes/tinymce.php');

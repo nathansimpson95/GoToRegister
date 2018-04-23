@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: nathansimpson95
 Donate link: http://nathansimpson.design/gotoregister
 Tags: gotowebinar, webinars, registration, forms
 Requires at least: 4.6
@@ -12,34 +12,17 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 A GoToWebinar Registration Form Generator Plugin, using Wordpress Shortcodes.
 
 == Description ==
+A WordPress Plugin for generating GoToWebinar Registration Forms, using Wordpress Shortcodes.
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Do you use GoToWebinar to schedule and host webinars? This plugin generates a simple registration form for a specified webinar that can be placed anywhere on your page.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+All you need to do is press the GoToRegister button in the visual editor for your posts, or use the shortcode template [gotoregister webinar_key="YOURWEBINARIDHERE")], and you're good to go!
 
-A few notes about the sections above:
+You will need an active GoToWebinar account to use this plugin.
 
-*   "Contributors" is a comma separated list of wordpress.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
 
 == Installation ==
-Before you begin, [sign up](http://wordpress.org/ "sign up") as a GoToDeveloper and create a new app. Copy your ClientID.
+Before you begin, [sign up](https://goto-developer.logmeininc.com/ "sign up") as a GoToDeveloper and create a new app. Copy your ClientID.
 
 To install GoToRegister
 1. Upload the plugin files to the `/wp-content/plugins/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.
@@ -49,35 +32,20 @@ To install GoToRegister
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Do I need GoToWebinar to use this plugin? =
 
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+Yes, a paid GoToWebinar subscription allows you to schedule Webinars, which is important for this plugin to work.
 
 == Screenshots ==
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+the /assets directory.
+1. Screenshot of an example form generated using the Bootstrap-Wide theme
+2. Adding the shortcode using the GoToRegister button in the visual editor.
+3. The GoToRegister button in the visual editor.
+4. Settings area in the Wordpress Dashboard
 
 == Changelog ==
 
 = 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
-== Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+Launched!!! WHOOOOOOOOOO!!!!!

@@ -6,9 +6,10 @@ function GoToRegister_settings_init() {
   register_setting( 'GoToRegister', 'GoToRegister_password' );
   register_setting( 'GoToRegister', 'GoToRegister_apiClientId' );
   register_setting( 'GoToRegister', 'GoToRegister_organiserKey' );
-  register_setting( 'GoToRegister', 'GoToRegister_disclaimer', array('default' => 'By clicking this button, you agree to allow us to communicate with you regarding this event.'));
-  register_setting( 'GoToRegister', 'GoToRegister_theme', array('default' => 'Bootstrap'));
-  register_setting( 'GoToRegister', 'GoToRegister_title', array('default' => '<h2>Register for this Webinar</h2>'));
+  register_setting( 'GoToRegister', 'GoToRegister_title' );
+  register_setting( 'GoToRegister', 'GoToRegister_theme' );
+  register_setting( 'GoToRegister', 'GoToRegister_disclaimer' );
+
 
   // register sections in the "GoToRegister" settings page
   add_settings_section(
@@ -207,6 +208,7 @@ function GoToRegister_field_theme_cb( $args ) {
  >
   <option value="Bootstrap" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'Bootstrap', false ) ) : ( '' ); ?> ><?php esc_html_e( 'Bootstrap', 'GoToRegister' ); ?></option>
   <option value="BootstrapWide" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'BootstrapWide', false ) ) : ( '' ); ?> ><?php esc_html_e( 'Bootstrap - Wide', 'GoToRegister' ); ?></option>
+  <option value="Simple" <?php echo isset( $option[ $args['label_for'] ] ) ? ( selected( $option[ $args['label_for'] ], 'Simple', false ) ) : ( '' ); ?> ><?php esc_html_e( 'Simple', 'GoToRegister' ); ?></option>
  </select>
  <p class="description"><?php esc_html_e( 'Choose the CSS Theme to be applied to the form', 'GoToRegister' ); ?></p>
  <?php
