@@ -37,9 +37,6 @@ To install GoToRegister
 Yes, a paid GoToWebinar subscription allows you to schedule Webinars, which is important for this plugin to work.
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory.
 1. Screenshot of an example form generated using the Bootstrap-Wide theme
 2. Adding the shortcode using the GoToRegister button in the visual editor.
 3. The GoToRegister button in the visual editor.
