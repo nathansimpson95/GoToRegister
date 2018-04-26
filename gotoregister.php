@@ -15,7 +15,7 @@ $token = "";
 $username = get_option( 'GoToRegister_username' );
 $password = get_option( 'GoToRegister_password' );
 $clientID = get_option( 'GoToRegister_apiClientId' );
-$defaultOrganiserKey = get_option( 'GoToRegister_organiserKey' );
+$organiserKey = get_option( 'GoToRegister_organiserKey' );
 $theme = get_option( 'GoToRegister_theme' );
 
 //generates an access token for a gotowebinar api request
@@ -76,25 +76,29 @@ function outputForm(){
 
 // generates a form using shortcodes and displays it on the page.
 function generateFormFunc($atts){
+	global $organiserKey;
+	global $token;
 
 	$a = shortcode_atts(array(
 		'webinar_key' => "123",
-		'organiser_key' => "100000000001300988",
+		'organiser_key' => $organiserKey,
 	), $atts, 'generateForm' );
-
-	global $token;
 
 	if (isset($_POST['registration-submission'])) {
 		generateToken();
 
-		$vals['body'] = (object) array('firstName' => $_POST['fname'],'lastName' => $_POST['lname'],'email' => $_POST['email']);
+		$vals['body'] = (object) array(
+			'firstName' => $_POST['fname'],
+			'lastName' => $_POST['lname'],
+			'email' => $_POST['email']
+		);
 
 		$long_url = 'https://api.getgo.com/G2W/rest/organizers/'.$a['organiser_key'].'/webinars/'.$a['webinar_key'].'/registrants';
-		$header = array(
-			'Content-type' => 'application/json',
-			'Accept' => 'application/vnd.citrix.g2wapi-v1.1+json',
-			'Authorization:' => $token,
-		);
+
+		$header = array();
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Accept: application/vnd.citrix.g2wapi-v1.1+json';
+		$header[] = 'Authorization:'. $token;
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $long_url);
@@ -112,6 +116,7 @@ function generateFormFunc($atts){
 		} else {
 			echo '<div class="alert alert-danger" role="alert"><strong>Whoops!</strong> Something has gone wrong. Please try registering <a href="https://register.gotowebinar.com/rt/'.$a['webinar_key'].'" target="_blank">here</a> instead.</div>';
 			$register_result = false;
+			echo curl_errno($ch);
 		}
 	}
 
